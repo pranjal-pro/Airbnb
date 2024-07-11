@@ -1,0 +1,121 @@
+<% layout("/layouts/boilerplate") %>
+<body>
+    <div class="home-page-transition d-flex justify-content-center align-items-start flex-column p-5">
+        <div class="overlay"></div>
+        <h1 class="m-5">Welcome to <br> Airbnb..!</h1>
+        <p class="m-5 shadow rounded">A clone Project by <a href="https://www.linkedin.com/in/pranjalpro12/">Pranjal Saxena</a></p>
+    </div>
+    <div id="filters" class="shadow sticky-top rounded p-3">
+        <ul class="d-flex justify-content-start align-items-center gap-5" style="list-style: none;">
+            <li>
+                <a href="/" class="d-flex flex-column justify-content-center align-items-center">
+                    <i class="fs-5 fa fa-fire"></i>
+                    <p class="">Trending</p>
+                </a>
+            </li>
+            <li>
+                <a href="/" class="d-flex flex-column justify-content-center align-items-center">
+                    <i class="fs-5 fa fa-bed"></i>
+                    <p class="">Rooms</p>
+                </a>
+            </li>
+            <li>
+                <a href="/" class="d-flex flex-column justify-content-center align-items-center">
+                    <i class="fs-5 fa fa-mountain-city"></i>
+                    <p class="">Iconic Cities</p>
+                </a>
+            </li>
+            <li>
+                <a href="/" class="d-flex flex-column justify-content-center align-items-center">
+                    <i class="fs-5 fa fa-mountain"></i>
+                    <p class="">Mountains</p>
+                </a>
+            </li>
+            <li>
+                <a href="/" class="d-flex flex-column justify-content-center align-items-center">
+                    <i class="fs-5 fa-brands fa-fort-awesome"></i>
+                    <p class="">Castles</p>
+                </a>
+            </li>
+            <li>
+                <a href="/" class="d-flex flex-column justify-content-center align-items-center">
+                    <i class="fs-5 fa-solid fa-person-swimming"></i>
+                    <p class="">Amazing Pool</p>
+                </a>
+            </li>
+            <li>
+                <a href="/" class="d-flex flex-column justify-content-center align-items-center">
+                    <i class="fs-5 fa-solid fa-campground"></i>
+                    <p class="">Camping</p>
+                </a>
+            </li>
+            <li>
+                <a href="/" class="d-flex flex-column justify-content-center align-items-center">
+                    <i class="fs-5 fa-solid fa-igloo"></i>
+                    <p class="">Domes</p>
+                </a>
+            </li>
+            <li>
+                <a href="/" class="d-flex flex-column justify-content-center align-items-center">
+                    <i class="fs-5 fa-solid fa-ship"></i>
+                    <p class="">Boats</p>
+                </a>
+            </li>
+            <li>
+                <a href="/" class="d-flex flex-column justify-content-center align-items-center">
+                    <i class="fs-5 fa-solid fa-cow"></i>
+                    <p class="">Farms</p>
+                </a>
+            </li>
+            <li>
+                <a href="/" class="d-flex flex-column justify-content-center align-items-center">
+                    <i class="fs-5 fa-regular fa-snowflake"></i>
+                    <p class="">Arctic</p>
+                </a>
+            </li>
+        </ul>
+        <div class="form-check-reverse form-switch bg-light rounded border p-3 pe-5 shadow">
+            <input class="form-check-input" type="checkbox" role="switch" id="tax-toggle">
+            <label class="form-check-label" for="tax-toggle">Display Total after Taxes</label>
+        </div>
+    </div>
+    <ul class="listings">
+        <% for(let listing of allListings){%>
+            <li>
+                <div class="card fade-in-element" onclick="redirect('<%- listing._id %>')">
+                    <img src="<%- listing.image.url %>" class="card-img" alt="<%- listing.image.filename %>" style="height: 250px;">
+                    <div class="card-img-overlay"></div>
+                    <div class="card-body">
+                        <h5 class="card-title"><%- listing.title %></h5>
+                        <p class="card-text">
+                            <span> &#8377;<%- listing.price.toLocaleString("en-IN") %> /night &nbsp; &nbsp; +18% GST </span>
+                            <span class="gstToggle"> &#8377;<%- (listing.price* 1.18).toLocaleString("en-IN") %> /night</span>
+                        </p>
+                    </div>
+                </div>
+            </li>
+        <% } %>
+    </ul>
+    <script>
+        async function redirect(listingId){
+            window.location.href = `/listings/${listingId}`;
+        }
+        
+        const taxToggle = document.getElementById('tax-toggle');
+        taxToggle.addEventListener("click", toggletax);
+        function toggletax(){
+            const listings = document.querySelectorAll('.listings li');
+            listings.forEach(listing => {
+                const spans= listing.querySelectorAll('.card-text span');
+                if(spans[0].classList.length!= 0) {
+                    spans[0].classList.remove('gstToggle');
+                    spans[1].classList.add('gstToggle');
+                }
+                else {
+                    spans[0].classList.add('gstToggle');
+                    spans[1].classList.remove('gstToggle');
+                }
+            });
+        }
+    </script>
+</body>

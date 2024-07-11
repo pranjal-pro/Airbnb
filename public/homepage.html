@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/logo.png" >
+    <style>
+      body {
+        font-family: sans-serif;
+        background: url("/assets/home.jpg") center/cover no-repeat;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        overflow: hidden;
+        background-attachment: fixed;
+        
+      }
+
+      .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+      }
+
+      .button {
+        display: inline-block;
+        padding: 15px 30px;
+        font-size: 18px;
+        font-weight: bold;
+        text-decoration: none;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+        color: #fff;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #ff4147;
+        border-radius: 8px;
+        box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.511);
+        transition: background-color 0.3s;
+      }
+
+      .button:hover {
+        background-color: #d02126;
+      }
+    </style>
+    <title>Airbnb Clone</title>
+  </head>
+  <body>
+    <div class=""></div>
+    <div class="overlay">
+      <a href="/listings" class="button">Explore Airbnb</a>
+    </div>
+  </body>
+</html>

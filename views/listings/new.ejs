@@ -1,0 +1,44 @@
+<% layout("/layouts/boilerplate") %>
+<body>
+    <h2 style="text-align: center;" class="my-3">Add New Listing</h2>
+    <form action="/listings" method="post" class="form my-5 needs-validation" novalidate enctype="multipart/form-data">
+
+        <div class="mb-3 row">
+            <label for="title" class="col-sm-2 col-form-label form-lable">Title</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="title" name="listing[title]" required placeholder="Enter Title">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label for="textbox" class="col-sm-2 form-label" >Description</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" id="textbox" rows="3" name="listing[description]" required placeholder="Enter Description"></textarea>
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label for="location" class="col-sm-2 col-form-label form-lable">Location</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="location" name="listing[location]" required placeholder="Enter Location">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label for="country" class="col-sm-2 col-form-label form-lable">Country</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="country" name="listing[country]" required placeholder="Enter Country">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label for="price" class="col-sm-2 col-form-label form-lable">Price</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" id="price" name="listing[price]" required min="0" placeholder="Enter Price">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label for="image" class="col-sm-2 col-form-label form-lable">Upload Image</label>
+            <div class="col-sm-10">
+                <input type="file" accept=".png, .svg, .jpeg, .jpg" class="form-control" id="image" name="listing[image]" required>
+            </div>
+          </div>
+        <button class="btn btn-danger mt-5 px-3">Add</button>
+    </form>
+</body>

@@ -1,0 +1,77 @@
+<% layout("/layouts/boilerplate") %>
+<body>
+    <h2 style="text-align: center;" class="my-3"><%- listing.title %></h2>
+    <div class="listing">
+        <figure class="figure" style="width: 500px;">
+            <img src="<%- listing.image.url  %>" class="figure-img img-fluid rounded" alt="<%- listing.image.filename  %>" />
+            <figcaption class="figure-caption text-end">@<%- listing.owner.username  %></figcaption>
+        </figure>
+        <p class="p-0 m-0 text-secondary"><%- listing.description %></p>
+        <p class="text-secondary">&#8377;<%- listing.price.toLocaleString('en-IN') %> pre night</p>
+        <p class="m-0 p-0"><i class="fa-solid fa-location-dot text-danger"></i> <%- listing.location %>, <%- listing.country %></p>
+    </div>
+    
+    <% if(currUser && currUser._id.equals(listing.owner._id)) {%>
+        <div class="btn-group d-flex justify-content-center align-item-center gap-3 my-5">
+            <a href="/listings/<%- listing._id  %>/edit" class="btn btn-danger px-4 rounded flex-grow-0">Edit</a>
+            <form action="/listings/<%- listing._id  %>?_method=DELETE" method="post">
+                <button class="btn btn-dark px-4">Delete</button>
+            </form>
+        </div>
+        <hr>
+    <% } %>
+    <% if(currUser) {%>
+        <div class="d-flex flex-column align-items-center justify-content-center my-5 border rounded shadow p-3 px-5" style="width: fit-content; margin:auto;">
+            <h2 class="m-3 fs-3">Leave a Review: </h2>
+            <form action="/listings/<%- listing._id %>/reviews" class="mx-3 needs-validation" method="post" novalidate>
+                <label for="5" class="form-label mx-3">Select Rating: </label>
+                <div class="mb-1" role="group">
+                    <fieldset class="starability-slot mx-3">
+                        <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="0" checked aria-label="No rating." />
+                        <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                        <label for="first-rate1" title="Terrible">1 star</label>
+                        <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                        <label for="first-rate2" title="Not good">2 stars</label>
+                        <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                        <label for="first-rate3" title="Average">3 stars</label>
+                        <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                        <label for="first-rate4" title="Very good">4 stars</label>
+                        <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                        <label for="first-rate5" title="Amazing">5 stars</label>
+                    </fieldset>
+                </div>
+                <div class="mb-3">
+                    <label for="comment" class="form-label mx-3">Leave a Comment: </label>
+                    <textarea class="form-control mx-3" id="comment" name="review[comment]" rows="3" required></textarea>
+                </div>
+                <button class="btn btn-danger px-3 mx-3">Submit</button>
+            </form>
+        </div>
+        <hr>
+    <% } %>
+    <div class="d-flex flex-wrap justify-content-center gap-3">
+        <% for(review of listing.reviews){ %>
+            <div class="border rounded shadow p-2 px-3 my-3 mx-3" style="height: fit-content; max-width: 30%;">
+                <p class="text-secondary m-0 p-0"><i class="fa-solid fa-user-circle text-primary"> &nbsp; </i><%- review.owner.username  %></p>
+                <p class="starability-result my-2" data-rating=<%- review.rating %>></p>
+                <p class="my-3 py-2"><%- review.comment %></p>
+                <% if(currUser&&review.owner._id.equals(currUser._id)){ %>
+                    <form action="/listings/<%- listing._id %>/reviews/<%- review._id %>?_method=DELETE" class="mb-3 py-3" method="post">
+                        <button class="btn btn-dark btn-sm px-3 shadow">Delete</button>
+                    </form>
+                <% } %>
+                <p class="text-secondary text-left pb-0 my-3 mb-0" style="font-size: xx-small;">@<%- review.createdAt.toLocaleString()%></p>
+            </div>
+        <% } %>
+    </div>
+    <div class="col-6 offset-3 my-3">
+        <h3 class="fw-light text-danger">Where you will be : </h3>
+        <div id="map" ></div>
+    </div>
+    <br>
+    <script>
+        const mapToken= '<%-process.env.MAP_TOKEN%>';
+        const data= <%-JSON.stringify( listing) %>;
+    </script>
+    <script src="/map.js"></script>
+</body>
